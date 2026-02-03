@@ -3,25 +3,121 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="main.js"></script>
+    <title>Management Dashboard</title>
+    <style>
+        /* Giao diện Tone màu đen (Dark Mode) */
+        body {
+            background-color: #1e1e1e;
+            color: #e0e0e0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+        }
+
+        h2 { border-bottom: 2px solid #007acc; padding-bottom: 10px; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: #2d2d2d;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #444;
+            text-align: left;
+        }
+
+        th { background-color: #007acc; color: white; }
+
+        /* Style cho Input và Button */
+        input[type="text"], input[type="number"] {
+            padding: 8px;
+            background-color: #333;
+            border: 1px solid #555;
+            color: white;
+            border-radius: 4px;
+        }
+
+        input[type="submit"], button {
+            padding: 8px 15px;
+            cursor: pointer;
+            background-color: #007acc;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        input[type="submit"]:hover, button:hover { background-color: #005f9e; }
+        
+        .btn-delete { background-color: #d9534f; }
+        .btn-delete:hover { background-color: #c9302c; }
+
+        /* Style cho Soft Deleted Posts */
+        .deleted-row {
+            text-decoration: line-through;
+            color: #888;
+            background-color: #252525;
+            font-style: italic;
+        }
+
+        .container { display: flex; gap: 20px; flex-wrap: wrap;}
+        .section { flex: 1; min-width: 400px; border: 1px solid #444; padding: 20px; border-radius: 8px; }
+        .form-group { margin-top: 15px; display: flex; gap: 10px; align-items: center; }
+    </style>
 </head>
 <body>
-    <div>
-        <table>
-            <thead>
+    <h1>System Dashboard</h1>
+    
+    <div class="container">
+        <div class="section">
+            <h2>Manage Posts</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Views</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="posts-body"></tbody>
+            </table>
+            
+            <div class="form-group">
+                <input type="text" id="post_id" placeholder="ID (Auto if empty)" readonly style="background-color: #222; cursor: not-allowed; width: 100px;"/>
+                <input type="text" id="post_title" placeholder="Post Title"/>
+                <input type="number" id="post_views" placeholder="Views"/>
+                <button onclick="SavePost()">Save Post</button>
+                <button onclick="ClearPostForm()" style="background-color: #555;">Clear</button>
+            </div>
+        </div>
 
-            </thead>
-            <tbody id="table-body">
+        <div class="section">
+            <h2>Manage Comments</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Text</th>
+                        <th>Post ID</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="comments-body"></tbody>
+            </table>
 
-            </tbody>
-        </table>
-    </div> 
-    <div>
-        <input type="text" id="id_txt"/>
-        <input type="text" id="title_txt"/>
-        <input type="text" id="view_txt"/>
-        <input type="submit" value="submit" onclick="Save()"/>
-    </div>   
+            <div class="form-group">
+                <input type="text" id="comment_id" placeholder="ID" readonly style="background-color: #222; cursor: not-allowed; width: 50px;"/>
+                <input type="text" id="comment_text" placeholder="Comment content"/>
+                <input type="text" id="comment_post_id" placeholder="For Post ID"/>
+                <button onclick="SaveComment()">Save Comment</button>
+                <button onclick="ClearCommentForm()" style="background-color: #555;">Clear</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
 </body>
 </html>

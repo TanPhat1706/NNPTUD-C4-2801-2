@@ -40,6 +40,12 @@
       "id": "6",
       "title": "h50",
       "views": "999"
+    },
+    {
+      "id": "9",
+      "title": "Tiêu đề",
+      "views": "200",
+      "isDeleted": true
     }
   ],
   "comments": [
